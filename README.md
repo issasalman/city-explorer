@@ -1,5 +1,41 @@
 
+![flow](assets/img/flow.png)
 
+# Project Name City Explorer
+
+**Author**: Issa Salman
+**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+
+## Overview
+Builing Application that gets data from USing API and in this lab the data were langitude and latitude of a location I choose then i request the Image location from API again
+
+## Getting Started
+1- Creating Repo
+2- Creating react app
+3-install packages 
+4-Use API to request and take DAta from 
+
+
+## Architecture
+React, Bootstrap, API, axiso  
+
+## Change Log
+<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
+
+01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+
+## Credit and Collaborations
+<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+
+
+Name of feature: API
+
+Estimate of time needed to complete: 6 hours
+
+Start time: 2 pm
+Finish time: 8 pm
+
+Actual time needed to complete: 6 hours
 
 # Getting Started with Create React App
 
