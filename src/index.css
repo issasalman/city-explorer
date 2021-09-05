@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-size: cover;
+  background-image: url("https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2Ff7db8066-f39b-11eb-8f01-2c678acbb979.jpg?crop=6480%2C3645%2C0%2C337&resize=1200");
 }
 
 code {
