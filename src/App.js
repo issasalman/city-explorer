@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
+import 'bootstrap/dist/css/bootstrap.min.css';
 export class App extends Component {
   constructor(props) {
     super(props);
