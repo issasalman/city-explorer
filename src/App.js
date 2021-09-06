@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +9,7 @@ export class App extends Component {
       locationData: {},
       error: false,
       locationImg: "",
+      locationInfo: {},
     };
   }
   submitForm = async (e) => {
@@ -25,12 +26,25 @@ export class App extends Component {
       const response2 = await axios.get(
         `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationData.lat},${this.state.locationData.lon}&format=jpg `
       );
-      console.log("our img response", response2.data);
+      // console.log("our img response", response2.data);
       console.log("our axios response", response.data[0]);
       this.setState({
         locationImg: response2.config.url,
       });
-      console.log("our cs response", this.locationImg);
+
+      const response4 = await axios.get(
+        `http://localhost:3020/weather?city_name=${location}`
+      );
+      console.log("our asdadadesponse", response4);
+      const response3 = await axios.get(
+        `http://localhost:3020/weatherInfo?city_name=${location}`
+      );
+
+      this.setState({
+        locationInfo: response3.data,
+      });
+
+      console.log("our cs response", this.state.locationInfo);
     } catch (error) {
       console.log("catch error" + error);
       this.setState({
@@ -80,15 +94,23 @@ export class App extends Component {
               </Card.Title>
               <Card.Text>latitude : {this.state.locationData.lat}</Card.Text>
               <Card.Text>longitude : {this.state.locationData.lon}</Card.Text>
+              <Card.Text>
+                locationInfo : {this.state.locationInfo.description}{" "}
+                {this.state.locationInfo.date}
+              </Card.Text>
               {/* <Card.Img variant="top"  /> */}
             </Card.Body>
           </Card>
         </div>
         <div>
-        {this.state.error && <p style={{  color: "white",   }}>Location not found try again </p>}
-        {this.state.locationData.lon && <p style={{  color: "white",   }} >The Selected Map </p>} 
+          {this.state.error && (
+            <p style={{ color: "white" }}>Location not found try again </p>
+          )}
+          {this.state.locationData.lon && (
+            <p style={{ color: "white" }}>The Selected Map </p>
+          )}
         </div>
-        <div >
+        <div>
           <img src={this.state.locationImg} alt={""} />
         </div>
       </div>
