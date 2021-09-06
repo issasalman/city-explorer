@@ -25,7 +25,8 @@ React, Bootstrap, API, axiso
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+Omar Taha
+https://www.w3schools.com/js/js_errors.asp
 
 
 Name of feature: API
