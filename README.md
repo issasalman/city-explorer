@@ -25,18 +25,19 @@ React, Bootstrap, API, axiso
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
-Omar Taha
+Omar Taha  
+
 https://www.w3schools.com/js/js_errors.asp
 
 
-Name of feature: API
+## Name of feature: API
 
-Estimate of time needed to complete: 6 hours
+## Estimate of time needed to complete: 6 hours
 
 Start time: 2 pm
 Finish time: 8 pm
 
-Actual time needed to complete: 6 hours
+ ## Actual time needed to complete: 6 hours
 
 # Getting Started with Create React App
 
