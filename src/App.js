@@ -33,11 +33,11 @@ export class App extends Component {
       });
 
       const response4 = await axios.get(
-        `http://localhost:3020/weather?city_name=${location}`
+        `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${location}`
       );
       console.log("our asdadadesponse", response4);
       const response3 = await axios.get(
-        `http://localhost:3020/weatherInfo?city_name=${location}`
+        `${process.env.REACT_APP_SERVER_URL}/weatherInfo?city_name=${location}`
       );
 
       this.setState({
