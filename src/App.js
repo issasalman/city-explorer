@@ -9,7 +9,7 @@ export class App extends Component {
       locationData: {},
       error: false,
       locationImg: "",
-      locationInfo: {},
+      locationInfo:[],
     };
   }
   submitForm = async (e) => {
@@ -32,12 +32,12 @@ export class App extends Component {
         locationImg: response2.config.url,
       });
 
-      const response4 = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${location}`
-      );
-      console.log("our asdadadesponse", response4);
+      // const response4 = await axios.get(
+      //   `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${location}`
+      // );
+      // console.log("our asdadadesponse", response4);
       const response3 = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/weatherInfo?city_name=${location}`
+        `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${location}`
       );
 
       this.setState({
@@ -61,6 +61,7 @@ export class App extends Component {
     //   imgSrc = "";
     // }
 
+console.log(this.state.locationInfo)
     return (
       <div>
         <form onSubmit={this.submitForm}>
@@ -94,10 +95,12 @@ export class App extends Component {
               </Card.Title>
               <Card.Text>latitude : {this.state.locationData.lat}</Card.Text>
               <Card.Text>longitude : {this.state.locationData.lon}</Card.Text>
-              <Card.Text>
-                locationInfo : {this.state.locationInfo.description}{" "}
-                {this.state.locationInfo.date}
-              </Card.Text>
+              {this.state.locationInfo.map(element=>{
+              return   <Card.Text>
+                
+                 locationInfo : {element.description}{" "}
+                {element.date}
+              </Card.Text> })   }
               {/* <Card.Img variant="top"  /> */}
             </Card.Body>
           </Card>
