@@ -6,28 +6,36 @@ class Movies extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <div>
-        <Card
-          style={{
-            width: "30rem",
-            border: "solid",
-            background: "white",
-            color: "white",
-          }}
-        >
-          <Card.Body
-            style={{
-              color: "black",
-            }}
-          >
-            <Card.Title>Moives</Card.Title>
-            <Card.Text>{this.props.locationMovie.title}</Card.Text>
-            <Card.Text>{this.props.locationMovie.overview}</Card.Text>
-            <Card.Text>{this.props.locationMovie.vote}</Card.Text>
-            <Card.Text>{this.props.locationMovie.count}</Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
+      <>
+        {this.props.locationMovie.map((element) => {
+          return (
+            <Card
+              style={{
+                width: "30rem",
+                border: "solid",
+                background: "white",
+                color: "white",
+                margin: "10px",
+              }}
+            >
+              <Card.Body
+                style={{
+                  color: "black",
+                }}
+              >
+                <Card.Title>Movie</Card.Title>
+                <Card.Text>{element.title}</Card.Text>
+                <Card.Text>{element.overview}</Card.Text>
+                <Card.Text>{element.vote}</Card.Text>
+                <Card.Text>{element.count}</Card.Text>
+                <Card.Text>{element.release_date}</Card.Text>
+                <Card.Text>{element.popularity}</Card.Text>
+                <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${element.img} `} alt={element.title}  />
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </>
     );
   }
 }

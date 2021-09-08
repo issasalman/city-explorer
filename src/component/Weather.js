@@ -26,11 +26,14 @@ class Weather extends React.Component {
             </Card.Title>
             <Card.Text>latitude : {this.props.locationData.lat}</Card.Text>
             <Card.Text>longitude : {this.props.locationData.lon}</Card.Text>
-
-            <Card.Text>
-              locationInfo : {this.props.locationInfo.description}{" "}
-              {this.props.locationInfo.date}
-            </Card.Text>
+             <Card.Text> locationInfo :</Card.Text>
+            {this.props.locationInfo.map((element) => {
+              return (
+                <Card.Text>
+                {element.description} {element.date}
+                </Card.Text>
+              );
+            })}
           </Card.Body>
         </Card>
       </div>
