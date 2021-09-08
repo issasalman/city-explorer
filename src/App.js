@@ -4,6 +4,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Weather from "./component/Weather";
 import Movies from "./component/Movies";
+import WeatherDay from "./component/WeatherDay"
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -82,6 +83,8 @@ export class App extends Component {
           <input name="locationName" type="text" placeholder="Enter Location" />
           <input type="submit" value="Search Location" />
         </form>
+        
+
         <div>
           <Weather
             locationInfo={this.state.locationInfo}
@@ -98,10 +101,9 @@ export class App extends Component {
         </div>
         <div>
           <img src={this.state.locationImg} alt={""} />
-          
         </div>
         <div>
-        <Movies locationMovie={this.state.locationMovie} />
+          <Movies locationMovie={this.state.locationMovie} />
         </div>
       </div>
     );

@@ -1,40 +1,47 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Row from "react-bootstrap/Row";
+import Movie from "./Movie";
 class Movies extends React.Component {
   render() {
     console.log(this.props);
     return (
       <>
-        {this.props.locationMovie.map((element) => {
-          return (
-            <Card
-              style={{
-                width: "30rem",
-                border: "solid",
-                background: "white",
-                color: "white",
-                margin: "10px",
-              }}
-            >
-              <Card.Body
+        <Row xs={1} md={3} className="g-4">
+          {this.props.locationMovie.map((element) => {
+            return (
+              <Card
                 style={{
-                  color: "black",
+                  width: "30rem",
+                  border: "solid",
+                  background: "white",
+                  color: "white",
+                  margin: "10px",
                 }}
               >
-                <Card.Title>Movie</Card.Title>
-                <Card.Text>{element.title}</Card.Text>
-                <Card.Text>{element.overview}</Card.Text>
-                <Card.Text>{element.vote}</Card.Text>
-                <Card.Text>{element.count}</Card.Text>
-                <Card.Text>{element.release_date}</Card.Text>
-                <Card.Text>{element.popularity}</Card.Text>
-                <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${element.img} `} alt={element.title}  />
-              </Card.Body>
-            </Card>
-          );
-        })}
+                <Card.Body
+                  style={{
+                    color: "black",
+                  }}
+                >
+                  <Card.Title>Movie</Card.Title>
+
+                  <Card.Text>
+                    {" "}
+                    <Movie movieInfo={element} />
+                  </Card.Text>
+
+                  <Card.Img
+                    variant="top"
+                    src={`https://image.tmdb.org/t/p/w500${element.img} `}
+                    alt={element.title}
+                  />
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </Row>
       </>
     );
   }
