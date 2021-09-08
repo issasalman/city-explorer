@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Card from "react-bootstrap/Card";
+// import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Weather from "./component/Weather";
+import Movies from "./component/Movies";
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,8 @@ export class App extends Component {
       locationData: {},
       error: false,
       locationImg: "",
-      locationInfo:[],
+      locationInfo: [],
+      locationMovie: [],
     };
   }
   submitForm = async (e) => {
@@ -32,16 +35,20 @@ export class App extends Component {
         locationImg: response2.config.url,
       });
 
-      // const response4 = await axios.get(
-      //   `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${location}`
-      // );
-      // console.log("our asdadadesponse", response4);
       const response3 = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${location}`
+        `${process.env.REACT_APP_SERVER_URL}/weather?city=${location}`
       );
 
       this.setState({
         locationInfo: response3.data,
+      });
+
+      const response4 = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/movies?query=${location}`
+      );
+
+      this.setState({
+        locationMovie: response4.data,
       });
 
       console.log("our cs response", this.state.locationInfo);
@@ -61,7 +68,7 @@ export class App extends Component {
     //   imgSrc = "";
     // }
 
-console.log(this.state.locationInfo)
+    console.log(this.state.locationInfo);
     return (
       <div>
         <form onSubmit={this.submitForm}>
@@ -76,34 +83,10 @@ console.log(this.state.locationInfo)
           <input type="submit" value="Search Location" />
         </form>
         <div>
-          <Card
-            style={{
-              width: "30rem",
-              border: "solid",
-              background: "white",
-              color: "white",
-            }}
-          >
-            <Card.Body
-              style={{
-                color: "black",
-              }}
-            >
-              <Card.Title>
-                {" "}
-                Display Name :{this.state.locationData.display_name}
-              </Card.Title>
-              <Card.Text>latitude : {this.state.locationData.lat}</Card.Text>
-              <Card.Text>longitude : {this.state.locationData.lon}</Card.Text>
-              {this.state.locationInfo.map(element=>{
-              return   <Card.Text>
-                
-                 locationInfo : {element.description}{" "}
-                {element.date}
-              </Card.Text> })   }
-              {/* <Card.Img variant="top"  /> */}
-            </Card.Body>
-          </Card>
+          <Weather
+            locationInfo={this.state.locationInfo}
+            locationData={this.state.locationData}
+          />
         </div>
         <div>
           {this.state.error && (
@@ -115,6 +98,10 @@ console.log(this.state.locationInfo)
         </div>
         <div>
           <img src={this.state.locationImg} alt={""} />
+          
+        </div>
+        <div>
+        <Movies locationMovie={this.state.locationMovie} />
         </div>
       </div>
     );
