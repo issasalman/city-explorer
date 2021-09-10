@@ -4,7 +4,6 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Weather from "./component/Weather";
 import Movies from "./component/Movies";
-import WeatherDay from "./component/WeatherDay"
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -20,55 +19,42 @@ export class App extends Component {
     e.preventDefault();
     try {
       const location = e.target.locationName.value;
+
+      let locIq = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${location}&format=json`;
+      let weathServer = `${process.env.REACT_APP_SERVER_URL}/weather?city=${location}`;
+      let movieServer = `${process.env.REACT_APP_SERVER_URL}/movies?query=${location}`;
       console.log("user Input Location: ", location);
-      const response = await axios.get(
-        `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${location}&format=json`
-      );
-      this.setState({
-        locationData: response.data[0],
+
+      axios.get(locIq).then((locatIQ) => {
+        this.setState({
+          locationData: locatIQ.data[0],
+        });
+        console.log(this.state.locationData);
+        let locMap = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationData.lat},${this.state.locationData.lon}&format=jpg `;
+        axios.get(locMap).then((LocatMAP) => {
+          this.setState({
+            locationImg: LocatMAP.config.url,
+          });
+        });
       });
-      const response2 = await axios.get(
-        `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationData.lat},${this.state.locationData.lon}&format=jpg `
-      );
-      // console.log("our img response", response2.data);
-      console.log("our axios response", response.data[0]);
-      this.setState({
-        locationImg: response2.config.url,
+      axios.get(weathServer).then((weaLOC) => {
+        this.setState({
+          locationInfo: weaLOC.data,
+        });
       });
-
-      const response3 = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/weather?city=${location}`
-      );
-
-      this.setState({
-        locationInfo: response3.data,
+      axios.get(movieServer).then((movieLOC) => {
+        this.setState({
+          locationMovie: movieLOC.data,
+        });
       });
-
-      const response4 = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/movies?query=${location}`
-      );
-
-      this.setState({
-        locationMovie: response4.data,
-      });
-
-      console.log("our cs response", this.state.locationInfo);
     } catch (error) {
       console.log("catch error" + error);
       this.setState({
-        error: true,
+        error: error.message,
       });
     }
   };
   render() {
-    // Solution #2
-    // let imgSrc;
-    // if (this.state.locationData.lon) {
-    //   imgSrc = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationData.lat},${this.state.locationData.lon}&format=jpg `;
-    // } else {
-    //   imgSrc = "";
-    // }
-
     console.log(this.state.locationInfo);
     return (
       <div>
@@ -83,7 +69,6 @@ export class App extends Component {
           <input name="locationName" type="text" placeholder="Enter Location" />
           <input type="submit" value="Search Location" />
         </form>
-        
 
         <div>
           <Weather
@@ -93,7 +78,10 @@ export class App extends Component {
         </div>
         <div>
           {this.state.error && (
-            <p style={{ color: "white" }}>Location not found try again </p>
+            <p style={{ color: "white" }}>
+              {" "}
+              {this.state.error} Location not found try again{" "}
+            </p>
           )}
           {this.state.locationData.lon && (
             <p style={{ color: "white" }}>The Selected Map </p>
