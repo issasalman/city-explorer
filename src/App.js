@@ -23,13 +23,15 @@ export class App extends Component {
       let locIq = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${location}&format=json`;
       let weathServer = `${process.env.REACT_APP_SERVER_URL}/weather?city=${location}`;
       let movieServer = `${process.env.REACT_APP_SERVER_URL}/movies?query=${location}`;
-      console.log("user Input Location: ", location);
-
+      // console.log("user Input Location: ", location);
+console.log(locIq)
       axios.get(locIq).then((locatIQ) => {
         this.setState({
           locationData: locatIQ.data[0],
+         
         });
-        console.log(this.state.locationData);
+        console.log(this.state.locationData)
+        // console.log(this.state.locationData);
         let locMap = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationData.lat},${this.state.locationData.lon}&format=jpg `;
         axios.get(locMap).then((LocatMAP) => {
           this.setState({
@@ -48,16 +50,18 @@ export class App extends Component {
         });
       });
     } catch (error) {
-      console.log("catch error" + error);
+      // console.log("catch error" + error);
       this.setState({
         error: error.message,
       });
     }
   };
   render() {
-    console.log(this.state.locationInfo);
+    // console.log(this.state.locationInfo);
     return (
       <div>
+
+        
         <form onSubmit={this.submitForm}>
           <label
             style={{
